@@ -1,7 +1,8 @@
 .ColorPicker {
   display: flex;
   flex-flow: column nowrap;
-  align-items: space-around;
+  align-items: center;
+  margin-bottom: 50px;
 }
 
 .ColorPicker-cell:hover {
@@ -13,6 +14,6 @@
   height: 40px;
   margin: 5px;
   border-radius: 50%;
-  opacity: .85;
+  opacity: 0.85;
   cursor: pointer;
 }

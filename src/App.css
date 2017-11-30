@@ -5,13 +5,12 @@
 .App-game {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
   justify-content: center;
 }
 
 .App-controls {
   display: flex;
   flex-flow: column nowrap;
-  align-items: space-between;
-  justify-content: center;
+  justify-content: space-between;
+  margin-left: 20px;
 }

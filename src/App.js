@@ -17,7 +17,7 @@ let headFootStyle = {
 class App extends Component {
   constructor(props) {
     super(props);
-    let colors = ["#7DBEA5", "#F1E0B1", "#EE9D31", "#F26C1A", "#5A392B"];
+    let colors = ["#7DBEA5", "#EE9D31", "#F26C1A", "#5A392B"];
     this.state = {
       colors,
       code: this.genCode(colors.length),

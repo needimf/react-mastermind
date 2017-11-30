@@ -7,14 +7,22 @@ import './GuessRow.css';
 const GuessRow = (props) => {
   return (
     <div className="GuessRow">
-      <div style={{color: props.currentGuess ? 'black' : 'lightgrey'}}>
+      <div 
+        style={{color: props.currentGuess ? 'black' : 'lightgrey'}}
+        className="GuessRow-num"
+      >
         {props.rowIdx + 1}
       </div>
       <GuessPegs 
         code={props.guess.code}
         colors={props.colors}
+        currentGuess={this.currentGuess}
       />
-      {(props.currentGuess ? <ScoreButton /> : <GuessScore score={props.guess.score}/>)}
+      {
+        props.currentGuess ? 
+          <ScoreButton /> : 
+          <GuessScore score={props.guess.score} />
+      }
     </div>
   );
 }
