@@ -43,12 +43,16 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">React Mastermind</header>
-        <GameBoard
-          guesses={this.state.guesses}
-          colors={this.state.colors} 
-        />
-        <ColorPicker colors={this.state.colors} />
-        <NewGameButton />
+        <div className="App-game-screen">
+          <GameBoard
+            guesses={this.state.guesses}
+            colors={this.state.colors} 
+          />
+          <div className="App-game-controls">
+            <ColorPicker colors={this.state.colors} selColorIdx={this.state.selColorIdx} />
+            <NewGameButton />
+          </div>
+        </div>
         <footer>{(winTries ? `You Won in ${winTries} Guesses!` : 'Good Luck!')}</footer>
       </div>
     );

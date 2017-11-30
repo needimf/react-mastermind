@@ -10,3 +10,17 @@
   font-size: 22px;
   text-align: center;
 }
+
+.App-game-screen {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-game-controls {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: space-between;
+  justify-content: center;
+}
