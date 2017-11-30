@@ -43,8 +43,8 @@ class App extends Component {
 
   getWinTries() {
     // if winner, return number of guesses, otherwise 0 (no winner)
-    let lastGuess = this.state.guesses.length - 1;
-    return this.state.code.join() === this.state.guesses[lastGuess].code.join() ? lastGuess + 1 : 0;
+    let lastGuess = this.state.guesses.last
+    return this.state.code.join() === lastGuess.code.join() ? this.state.guesses.indexOf(lastGuess) + 1 : 0;
   }
 
   render() {
