@@ -6,11 +6,14 @@ import GuessScore from './../GuessScore/GuessScore';
 const GuessRow = (props) => {
   return (
     <div>
-      <p>#</p>
-      <GuessPegs />
-      <br/>
-      <ScoreButton />
-      <GuessScore />
+      <div>
+        {props.rowIdx + 1}
+      </div>
+      <GuessPegs 
+        code={props.guess.code}
+        colors={props.colors}
+      />
+      {(props.currentGuess ? <ScoreButton /> : <GuessScore score={props.guess.score}/>)}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import React from 'react';
 const GuessPeg = (props) => {
   return (
     <div>
-      Peg
+      {props.color}
     </div>
   );
 }

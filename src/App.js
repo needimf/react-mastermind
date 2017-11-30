@@ -13,7 +13,7 @@ class App extends Component {
       colors,
       code: this.genCode(colors.length),
       selColorIdx: 0,
-      guesses: [this.getNewGuess()]
+      guesses: [this.getNewGuess(), this.getNewGuess()]
     };
   }
 
@@ -35,7 +35,7 @@ class App extends Component {
   getWinTries() {
     // if winner, return number of guesses, otherwise 0 (no winner)
     let lastGuess = this.state.guesses.length - 1;
-    return this.state.code.join() === this.state.guesses[lastGuess].join() ? lastGuess + 1 : 0;
+    return this.state.code.join() === this.state.guesses[lastGuess].code.join() ? lastGuess + 1 : 0;
   }
 
   render() {

@@ -4,8 +4,15 @@ import GuessRow from './../GuessRow/GuessRow';
 const GameBoard = (props) => {
   return (
     <div>
-      <GuessRow />
-      <GuessRow />
+      {props.guesses.map((guess, idx) => 
+        <GuessRow 
+          guess={guess}
+          colors={props.colors}
+          rowIdx={idx}
+          currentGuess={idx === (props.guesses.length - 1)}
+          key={idx}
+        />
+      )}
     </div>
   );
 }
