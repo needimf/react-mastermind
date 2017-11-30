@@ -12,6 +12,7 @@ const GameBoard = (props) => {
           rowIdx={idx}
           currentGuess={idx === (props.guesses.length - 1)}
           key={idx}
+          handlePegClick={props.handlePegClick}
         />
       )}
     </div>

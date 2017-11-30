@@ -52,17 +52,24 @@ class App extends Component {
     this.setState({selColorIdx: colorIdx});
   }
 
+  handlePegClick = (e) => {
+    let guessesCopy = this.state.guesses.slice()
+    guessesCopy.last().code[parseInt(e.target.className)] = this.state.selColorIdx;
+    this.setState({ guesses: guessesCopy });
+  }
+
   // 
 
   render() {
     let winTries = this.getWinTries();
     return (
       <div className="App">
-        <header style={headFootStyle}>React Mastermind</header>
+        <header style={headFootStyle}>R E A C T &nbsp;&nbsp; M A S T E R M I N D</header>
         <div className="App-game">
           <GameBoard
             guesses={this.state.guesses}
-            colors={this.state.colors} 
+            colors={this.state.colors}
+            handlePegClick={this.handlePegClick} 
           />
           <div className="App-controls">
             <ColorPicker 
