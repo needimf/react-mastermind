@@ -2,23 +2,14 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: #222;
-  height: 50px;
-  padding: 10px;
-  color: white;
-  font-size: 22px;
-  text-align: center;
-}
-
-.App-game-screen {
+.App-game {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
 }
 
-.App-game-controls {
+.App-controls {
   display: flex;
   flex-flow: column nowrap;
   align-items: space-between;
