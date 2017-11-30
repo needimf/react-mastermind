@@ -12,6 +12,7 @@ const ColorPicker = (props) => {
             border: props.selColorIdx === idx ? `14px solid ${color}` : false
           }}
           key={color}
+          onClick={() => props.handleColorSelection(idx)}
         />
       )}
     </div>

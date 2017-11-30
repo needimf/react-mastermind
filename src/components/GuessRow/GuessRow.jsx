@@ -16,7 +16,7 @@ const GuessRow = (props) => {
       <GuessPegs 
         code={props.guess.code}
         colors={props.colors}
-        currentGuess={this.currentGuess}
+        currentGuess={props.currentGuess}
       />
       {
         props.currentGuess ? 

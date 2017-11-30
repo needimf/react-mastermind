@@ -21,15 +21,14 @@ class App extends Component {
     this.state = {
       colors,
       code: this.genCode(colors.length),
-      selColorIdx: 0,
-      guesses: [this.getNewGuess(), this.getNewGuess()]
+      selColorIdx: null,
+      guesses: [this.getNewGuess()]
     };
   }
 
   getNewGuess() {
     return {
-      // code: [null, null, null, null],
-      code: [3, 2, 1, 0], // for testing purposes
+      code: [null, null, null, null],
       score: {
         perfect: 0,
         almost: 0
@@ -43,9 +42,17 @@ class App extends Component {
 
   getWinTries() {
     // if winner, return number of guesses, otherwise 0 (no winner)
-    let lastGuess = this.state.guesses.last
-    return this.state.code.join() === lastGuess.code.join() ? this.state.guesses.indexOf(lastGuess) + 1 : 0;
+    let lastGuess = this.state.guesses.last();
+    return this.state.code.join() === lastGuess.code.join() ? this.state.guesses.length : 0;
   }
+
+  // Event Handlers
+
+  handleColorSelection = (colorIdx) => {
+    this.setState({selColorIdx: colorIdx});
+  }
+
+  // 
 
   render() {
     let winTries = this.getWinTries();
@@ -60,7 +67,8 @@ class App extends Component {
           <div className="App-controls">
             <ColorPicker 
               colors={this.state.colors} 
-              selColorIdx={this.state.selColorIdx} 
+              selColorIdx={this.state.selColorIdx}
+              handleColorSelection={this.handleColorSelection} 
             />
             <NewGameButton />
           </div>
