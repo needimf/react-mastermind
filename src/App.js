@@ -46,6 +46,27 @@ class App extends Component {
     return this.state.code.join() === lastGuess.code.join() ? this.state.guesses.length : 0;
   }
 
+  scoreGuess() {
+    let answer = this.state.code.slice();
+    let score = Object.assign({}, this.state.guesses.last().score);
+    let guessCode = this.state.guesses.last().code.slice();
+    guessCode.forEach((code, idx) => {
+      if (code === answer[idx]) {
+        score.perfect += 1;
+        answer[idx] = null;
+        guessCode[idx] = undefined;
+      }
+    });
+    guessCode.forEach((code) => {
+      let answerIdx = answer.indexOf(code);
+      if (answerIdx >= 0) {
+        score.almost += 1;
+        answer[answerIdx] = null;
+      }
+    });
+    return score;
+  }
+
   // Event Handlers
 
   handleColorSelection = (colorIdx) => {
@@ -53,11 +74,20 @@ class App extends Component {
   }
 
   handlePegClick = (e) => {
-    let guessesCopy = this.state.guesses.slice()
+    let guessesCopy = this.state.guesses.slice();
     guessesCopy.last().code[parseInt(e.target.className)] = this.state.selColorIdx;
     this.setState({ guesses: guessesCopy });
   }
 
+  handleGuessSubmission = (e) => {
+    if (this.state.guesses.last().code.some(x => x === null)) return;
+    let guessScore = this.scoreGuess();
+    let newGuess = this.getNewGuess();
+    let guessesCopy = this.state.guesses.slice();
+    guessesCopy.last().score = guessScore;
+    guessesCopy.push(newGuess);
+    this.setState({guesses: guessesCopy});
+  }
   // 
 
   render() {
@@ -70,6 +100,7 @@ class App extends Component {
             guesses={this.state.guesses}
             colors={this.state.colors}
             handlePegClick={this.handlePegClick} 
+            handleGuessSubmission={this.handleGuessSubmission}
           />
           <div className="App-controls">
             <ColorPicker 

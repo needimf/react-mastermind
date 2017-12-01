@@ -21,7 +21,7 @@ const GuessRow = (props) => {
       />
       {
         props.currentGuess ? 
-          <ScoreButton /> : 
+          <ScoreButton handleGuessSubmission={props.handleGuessSubmission} /> : 
           <GuessScore score={props.guess.score} />
       }
     </div>
