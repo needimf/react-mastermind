@@ -73,9 +73,9 @@ class App extends Component {
     this.setState({selColorIdx: colorIdx});
   }
 
-  handlePegClick = (e) => {
+  handlePegClick = (idx) => {
     let guessesCopy = this.state.guesses.slice();
-    guessesCopy.last().code[parseInt(e.target.className)] = this.state.selColorIdx;
+    guessesCopy.last().code[idx] = this.state.selColorIdx;
     this.setState({ guesses: guessesCopy });
   }
 
