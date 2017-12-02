@@ -80,7 +80,6 @@ class App extends Component {
   }
 
   handleGuessSubmission = (e) => {
-    if (this.state.guesses.last().code.some(x => x === null)) return;
     let guessScore = this.scoreGuess();
     let newGuess = this.getNewGuess();
     let guessesCopy = this.state.guesses.slice();
