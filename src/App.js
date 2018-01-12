@@ -87,6 +87,17 @@ class App extends Component {
     guessesCopy.push(newGuess);
     this.setState({guesses: guessesCopy});
   }
+
+  handleNewGame = () => {
+    this.setState((prevState) => ({
+      code: this.genCode(prevState.colors.length),
+      selColorIdx: null,
+      guesses:[this.getNewGuess()]
+    }))
+  }
+
+    
+
   // 
 
   render() {
@@ -107,7 +118,9 @@ class App extends Component {
               selColorIdx={this.state.selColorIdx}
               handleColorSelection={this.handleColorSelection} 
             />
-            <NewGameButton />
+            <NewGameButton 
+              handleNewGame={this.handleNewGame}
+            />
           </div>
         </div>
         <footer style={headFootStyle}>{(winTries ? `You Won in ${winTries} Guesses!` : 'Good Luck!')}</footer>
