@@ -22,7 +22,8 @@ class App extends Component {
       colors,
       code: this.genCode(colors.length),
       selColorIdx: null,
-      guesses: [this.getNewGuess()]
+      guesses: [this.getNewGuess()],
+      winner: null
     };
   }
 
@@ -42,8 +43,7 @@ class App extends Component {
 
   getWinTries() {
     // if winner, return number of guesses, otherwise 0 (no winner)
-    let lastGuess = this.state.guesses.last();
-    return this.state.code.join() === lastGuess.code.join() ? this.state.guesses.length : 0;
+    return this.state.winner ? this.state.guesses.length : 0;
   }
 
   scoreGuess() {
@@ -67,6 +67,12 @@ class App extends Component {
     return score;
   }
 
+  checkForWinner(guessArray) {
+    // return score.perfect === 4 ? true : false;
+    let lastGuess = guessArray.last();
+    return this.state.code.join() === lastGuess.code.join() ? true : false;
+  }
+
   // Event Handlers
 
   handleColorSelection = (colorIdx) => {
@@ -84,15 +90,17 @@ class App extends Component {
     let newGuess = this.getNewGuess();
     let guessesCopy = this.state.guesses.slice();
     guessesCopy.last().score = guessScore;
-    guessesCopy.push(newGuess);
-    this.setState({guesses: guessesCopy});
+    let winnerStatus = this.checkForWinner(guessesCopy);
+    winnerStatus || guessesCopy.push(newGuess);
+    this.setState({guesses: guessesCopy, winner: winnerStatus});
   }
 
   handleNewGame = () => {
     this.setState((prevState) => ({
       code: this.genCode(prevState.colors.length),
       selColorIdx: null,
-      guesses:[this.getNewGuess()]
+      guesses:[this.getNewGuess()],
+      winner: null
     }))
   }
 
@@ -101,7 +109,6 @@ class App extends Component {
   // 
 
   render() {
-    let winTries = this.getWinTries();
     return (
       <div className="App">
         <header style={headFootStyle}>R E A C T &nbsp;&nbsp; M A S T E R M I N D</header>
@@ -109,6 +116,7 @@ class App extends Component {
           <GameBoard
             guesses={this.state.guesses}
             colors={this.state.colors}
+            winner={this.state.winner}
             handlePegClick={this.handlePegClick} 
             handleGuessSubmission={this.handleGuessSubmission}
           />
@@ -123,7 +131,7 @@ class App extends Component {
             />
           </div>
         </div>
-        <footer style={headFootStyle}>{(winTries ? `You Won in ${winTries} Guesses!` : 'Good Luck!')}</footer>
+        <footer style={headFootStyle}>{(this.state.winner ? `You Won in ${this.getWinTries()} Guesses!` : 'Good Luck!')}</footer>
       </div>
     );
   }

@@ -20,7 +20,7 @@ const GuessRow = (props) => {
         handlePegClick={props.handlePegClick}
       />
       {
-        props.currentGuess ? 
+        props.currentGuess && !props.winner ? 
           <ScoreButton handleGuessSubmission={props.handleGuessSubmission} code={props.guess.code}/> : 
           <GuessScore score={props.guess.score} />
       }
