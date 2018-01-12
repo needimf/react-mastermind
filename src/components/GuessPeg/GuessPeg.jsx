@@ -13,7 +13,7 @@ const GuessPeg = (props) => {
   };
 
   return (
-    <div style={style} onClick={() => props.handlePegClick(props.position)} />
+    <div style={style} onClick={props.currentGuess ? () => props.handlePegClick(props.position) : undefined} />
   );
 }
 
