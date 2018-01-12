@@ -18,7 +18,7 @@ Mastermind is traditionally a two-player code breaking game. One player sets a s
 
 ## Screenshots
 
-<img src="https://i.imgur.com/DCBWojj.png"
+<img src="https://i.imgur.com/ZT5qo5H.png"
      alt="Game winner screenshot"
      style="margin: 0 auto; max-width: 80%;" />
 
