@@ -18,11 +18,11 @@ let headFootStyle = {
 class App extends Component {
   constructor(props) {
     super(props);
-    let colors = ["#7DBEA5", "#EE9D31", "#F26C1A", "#5A392B"];
+    let colors = ["#7DBEA5", "#EE9D31", "#F26C1A", "#5A392B", "#F1E0B1", "#6DE3F0"];
     this.state = {
       colors,
       difficulty: 4,
-      code: this.genCode(colors.length),
+      code: this.genCode(4),
       selColorIdx: null,
       guesses: [this.getNewGuess()],
       winner: null
@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   genCode(size) {
-    return new Array(size).fill().map(dummy => Math.floor(Math.random() * size));
+    return new Array(4).fill().map(dummy => Math.floor(Math.random() * size));
   }
 
   getWinTries() {
@@ -106,6 +106,9 @@ class App extends Component {
     }))
   }
 
+  handleDifficultyChange = (difficulty) => {
+    this.setState({difficulty, code: this.genCode(difficulty)})
+  }
     
 
   // 
@@ -126,13 +129,14 @@ class App extends Component {
             <ColorPicker 
               colors={this.state.colors} 
               selColorIdx={this.state.selColorIdx}
-              handleColorSelection={this.handleColorSelection} 
+              handleColorSelection={this.handleColorSelection}
+              difficulty={this.state.difficulty} 
             />
             <NewGameButton 
               handleNewGame={this.handleNewGame}
             />
             <DifficultyButtons
-              handleDifficultyChange={undefined}
+              handleDifficultyChange={this.handleDifficultyChange}
             />
           </div>
         </div>
