@@ -17,6 +17,8 @@ const ColorPicker = (props) => {
               onClick={() => props.handleColorSelection(idx)}
             />
           )
+        } else {
+          return (<div id={`color-placeholder-${idx}`}></div>)
         }
       })}
       </div>
