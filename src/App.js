@@ -4,6 +4,7 @@ import './App.css';
 import GameBoard from './components/GameBoard/GameBoard';
 import ColorPicker from './components/ColorPicker/ColorPicker';
 import NewGameButton from './components/NewGameButton/NewGameButton';
+import DifficultyButtons from './components/DiffcultyButtons/DifficultyButtons';
 
 let headFootStyle = {
   height: 50,
@@ -20,6 +21,7 @@ class App extends Component {
     let colors = ["#7DBEA5", "#EE9D31", "#F26C1A", "#5A392B"];
     this.state = {
       colors,
+      difficulty: 4,
       code: this.genCode(colors.length),
       selColorIdx: null,
       guesses: [this.getNewGuess()],
@@ -128,6 +130,9 @@ class App extends Component {
             />
             <NewGameButton 
               handleNewGame={this.handleNewGame}
+            />
+            <DifficultyButtons
+              handleDifficultyChange={undefined}
             />
           </div>
         </div>
