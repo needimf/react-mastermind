@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-
-import GameBoard from './components/GameBoard/GameBoard';
-import ColorPicker from './components/ColorPicker/ColorPicker';
-import NewGameButton from './components/NewGameButton/NewGameButton';
-import DifficultyButtons from './components/DiffcultyButtons/DifficultyButtons';
-
-let headFootStyle = {
-  height: 50,
-  padding: 10,
-  margin: '15px 0',
-  color: 'grey',
-  fontSize: 18,
-  textAlign: 'center'
-};
+import {
+  Switch,
+  Route
+} from 'react-router-dom';
+import GamePage from './../GamePage/GamePage';
+import SettingsPage from './../SettingsPage/SettingsPage';
 
 class App extends Component {
   constructor(props) {
@@ -41,11 +33,6 @@ class App extends Component {
 
   genCode(size) {
     return new Array(4).fill().map(dummy => Math.floor(Math.random() * size));
-  }
-
-  getWinTries() {
-    // if winner, return number of guesses, otherwise 0 (no winner)
-    return this.state.winner ? this.state.guesses.length : 0;
   }
 
   scoreGuess() {
@@ -109,38 +96,34 @@ class App extends Component {
   handleDifficultyChange = (difficulty) => {
     this.setState({difficulty, code: this.genCode(difficulty)})
   }
-    
-
-  // 
+  
+  // Lifecycle Methods
 
   render() {
     return (
       <div className="App">
-        <header style={headFootStyle}>R E A C T &nbsp;&nbsp; M A S T E R M I N D</header>
-        <div className="App-game">
-          <GameBoard
-            guesses={this.state.guesses}
-            colors={this.state.colors}
-            winner={this.state.winner}
-            handlePegClick={this.handlePegClick} 
-            handleGuessSubmission={this.handleGuessSubmission}
-          />
-          <div className="App-controls">
-            <ColorPicker 
-              colors={this.state.colors} 
+        <header className="header-footer-style">R E A C T &nbsp;&nbsp; M A S T E R M I N D</header>
+        <Switch>
+          <Route exact path="/" render={(props) =>
+            <GamePage
+              guesses={this.state.guesses}
+              colors={this.state.colors}
+              winner={this.state.winner}
+              handlePegClick={this.handlePegClick} 
+              handleGuessSubmission={this.handleGuessSubmission}
               selColorIdx={this.state.selColorIdx}
               handleColorSelection={this.handleColorSelection}
-              difficulty={this.state.difficulty} 
-            />
-            <NewGameButton 
+              difficulty={this.state.difficulty}
               handleNewGame={this.handleNewGame}
-            />
-            <DifficultyButtons
               handleDifficultyChange={this.handleDifficultyChange}
-            />
-          </div>
-        </div>
-        <footer style={headFootStyle}>{(this.state.winner ? `You Won in ${this.getWinTries()} Guesses!` : 'Good Luck!')}</footer>
+            />}
+          />
+          <Route exact path="/settings" render={(props) =>
+            <SettingsPage
+          
+            />}
+          />
+        </Switch>
       </div>
     );
   }
