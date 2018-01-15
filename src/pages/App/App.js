@@ -96,7 +96,7 @@ class App extends Component {
   handleDifficultyChange = (difficulty) => {
     this.setState({difficulty, code: this.genCode(difficulty)})
   }
-  
+
   // Lifecycle Methods
 
   render() {
@@ -120,7 +120,11 @@ class App extends Component {
           />
           <Route exact path="/settings" render={(props) =>
             <SettingsPage
-          
+              handleDifficultyChange={this.handleDifficultyChange}
+              colors={this.state.colors}
+              handleNewGame={this.handleNewGame}
+              {...props}
+              difficulty={this.state.difficulty}
             />}
           />
         </Switch>
