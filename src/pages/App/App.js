@@ -32,6 +32,7 @@ class App extends Component {
   }
 
   genCode(size) {
+    console.log(size)
     return new Array(4).fill().map(dummy => Math.floor(Math.random() * size));
   }
 
@@ -86,7 +87,7 @@ class App extends Component {
 
   handleNewGame = () => {
     this.setState((prevState) => ({
-      code: this.genCode(prevState.colors.length),
+      code: this.genCode(prevState.difficulty),
       selColorIdx: null,
       guesses:[this.getNewGuess()],
       winner: null
@@ -94,7 +95,7 @@ class App extends Component {
   }
 
   handleDifficultyChange = (difficulty) => {
-    this.setState({difficulty, code: this.genCode(difficulty)})
+    this.setState({difficulty})
   }
 
   // Lifecycle Methods

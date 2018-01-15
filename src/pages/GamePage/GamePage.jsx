@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import GameBoard from './../../components/GameBoard/GameBoard';
 import ColorPicker from './../../components/ColorPicker/ColorPicker';
 import NewGameButton from './../../components/NewGameButton/NewGameButton';
-import DifficultyButtons from './../../components/DiffcultyButtons/DifficultyButtons';
 
 const GamePage = (props) => {
 

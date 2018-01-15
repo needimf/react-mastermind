@@ -18,7 +18,7 @@ const ColorPicker = (props) => {
             />
           )
         } else {
-          return (<div id={`color-placeholder-${idx}`}></div>)
+          return (<div id={`color-placeholder-${idx}`} key={color}></div>)
         }
       })}
       </div>
