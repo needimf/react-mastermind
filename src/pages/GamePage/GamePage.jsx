@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import GameBoard from './../../components/GameBoard/GameBoard';
 import ColorPicker from './../../components/ColorPicker/ColorPicker';
 import NewGameButton from './../../components/NewGameButton/NewGameButton';
+import GameTimer from './../../components/GameTimer/GameTimer';
 
 const GamePage = (props) => {
 
@@ -25,6 +26,10 @@ const GamePage = (props) => {
             selColorIdx={props.selColorIdx}
             handleColorSelection={props.handleColorSelection}
             difficulty={props.difficulty} 
+          />
+          <GameTimer 
+            elapsedTime={props.elapsedTime}
+            handleTick={props.handleTick}
           />
           <Link className="btn btn-default" style={{margin: '0 10px'}} to="/settings">Difficulty</Link>
           <NewGameButton 

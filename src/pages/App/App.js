@@ -17,7 +17,8 @@ class App extends Component {
       code: this.genCode(4),
       selColorIdx: null,
       guesses: [this.getNewGuess()],
-      winner: null
+      winner: null,
+      elapsedTime: 0
     };
   }
 
@@ -32,7 +33,6 @@ class App extends Component {
   }
 
   genCode(size) {
-    console.log(size)
     return new Array(4).fill().map(dummy => Math.floor(Math.random() * size));
   }
 
@@ -90,12 +90,19 @@ class App extends Component {
       code: this.genCode(prevState.difficulty),
       selColorIdx: null,
       guesses:[this.getNewGuess()],
-      winner: null
+      winner: null,
+      elapsedTime: 0
     }))
   }
 
   handleDifficultyChange = (difficulty) => {
     this.setState({difficulty})
+  }
+
+  handleTick = () => {
+    this.setState((prevState) => ({
+      elapsedTime: ++prevState.elapsedTime
+    }));
   }
 
   // Lifecycle Methods
@@ -117,6 +124,8 @@ class App extends Component {
               difficulty={this.state.difficulty}
               handleNewGame={this.handleNewGame}
               handleDifficultyChange={this.handleDifficultyChange}
+              elapsedTime={this.state.elapsedTime}
+              handleTick={this.handleTick}
             />}
           />
           <Route exact path="/settings" render={(props) =>
