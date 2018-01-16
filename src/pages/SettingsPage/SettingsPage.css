@@ -2,13 +2,37 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .SettingsPage-row {
+  display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.SettingsPage-row button {
+  width: 86px;
+  margin: 10px;
 }
 
 .SettingsPage-selected-difficulty {
   border: 2px solid #333;
+}
+
+.SettingsPage-difficulty-colors {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.SettingsPage-color {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.SettingsPage-cancel {
+  width: 100px;
 }

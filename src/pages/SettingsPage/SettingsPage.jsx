@@ -5,9 +5,9 @@ import './SettingsPage.css';
 const SettingsPage = (props) => {
 
   let difficulties = [
-    {name: 'Beginner', colorNum: 4},
-    {name: 'Intermediate', colorNum: 5},
-    {name: 'Expert', colorNum: 6},
+    {name: 'Easy', colorNum: 4},
+    {name: 'Moderate', colorNum: 5},
+    {name: 'Difficult', colorNum: 6},
   ]
 
   function handleDifficultyChange(numOfColors) {
@@ -25,16 +25,27 @@ const SettingsPage = (props) => {
       >
       {difficulty.name}
       </button>
+      <div className="SettingsPage-difficulty-colors">
+        {props.colors.slice(0, difficulty.colorNum).map(color =>
+          <div
+            className="SettingsPage-color"
+            style={{backgroundColor: color}}
+            key={color}
+          />
+        )}
+      </div>
     </div>
   ))
 
   return (
-    <div>
+    <div className="SettingsPage-container">
       <h1 className="header-footer-style">Set Difficulty Level</h1>
-      <div className="SettingsPage-container">
+      <div>
         {levels}
       </div>
-      <Link className="btn btn-default" to="/">Cancel</Link>
+      <div>
+        <Link className="SettingsPage-cancel btn btn-default" to="/">Cancel</Link>
+      </div>
     </div>
   )
 }
