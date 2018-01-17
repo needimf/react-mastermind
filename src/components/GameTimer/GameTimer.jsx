@@ -13,10 +13,9 @@ class GameTimer extends Component {
   /*---------- Lifecycle Methods ----------*/
 
   componentDidMount() {
-    this.timerId = setInterval(
-      this.props.handleTick,
-      1000
-    );
+    this.timerId = setInterval(() => {
+      if (this.props.isTiming) this.props.handleTick();
+    }, 1000);
   }
 
   componentWillUnmount() {

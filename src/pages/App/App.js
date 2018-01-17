@@ -18,7 +18,8 @@ class App extends Component {
       selColorIdx: null,
       guesses: [this.getNewGuess()],
       winner: null,
-      elapsedTime: 0
+      elapsedTime: 0,
+      finalTime: 0
     };
   }
 
@@ -81,8 +82,9 @@ class App extends Component {
     let guessesCopy = this.state.guesses.slice();
     guessesCopy.last().score = guessScore;
     let winnerStatus = this.checkForWinner(guessesCopy);
+    let finalTime = winnerStatus ? this.state.elapsedTime : 0;
     winnerStatus || guessesCopy.push(newGuess);
-    this.setState({guesses: guessesCopy, winner: winnerStatus});
+    this.setState({guesses: guessesCopy, winner: winnerStatus, finalTime});
   }
 
   handleNewGame = () => {
@@ -91,7 +93,8 @@ class App extends Component {
       selColorIdx: null,
       guesses:[this.getNewGuess()],
       winner: null,
-      elapsedTime: 0
+      elapsedTime: 0,
+      finalTime: 0
     }))
   }
 
@@ -126,6 +129,7 @@ class App extends Component {
               handleDifficultyChange={this.handleDifficultyChange}
               elapsedTime={this.state.elapsedTime}
               handleTick={this.handleTick}
+              isTiming={!this.state.finalTime}
             />}
           />
           <Route exact path="/settings" render={(props) =>
