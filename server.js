@@ -3,6 +3,9 @@ let path = require('path');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 
+// Require mongoDB
+require('./config/database');
+
 let app = express();
 
 app.use(logger('dev'));
