@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import GamePage from './../GamePage/GamePage';
 import SettingsPage from './../SettingsPage/SettingsPage';
+import TopScoresPage from './../TopScoresPage/TopScoresPage';
 
 class App extends Component {
   constructor(props) {
@@ -140,6 +141,9 @@ class App extends Component {
               {...props}
               difficulty={this.state.difficulty}
             />}
+          />
+          <Route exact path="/topscores" render={(props) =>
+            <TopScoresPage />}
           />
         </Switch>
       </div>
