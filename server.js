@@ -6,6 +6,10 @@ let logger = require('morgan');
 // Require mongoDB
 require('./config/database');
 
+// Define api routes
+const api = require('./routes/api/api');
+
+
 let app = express();
 
 app.use(logger('dev'));
@@ -16,6 +20,7 @@ app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
 // API routes before "catch all" route
+app.use('/api', api);
 
 // This "catch all" route is necessary for when users
 // attempt to access the website from a link or path in
