@@ -2,6 +2,7 @@ let express = require('express');
 let path = require('path');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
+let bodyParser = require('body-parser');
 
 // Require mongoDB
 require('./config/database');
@@ -13,6 +14,7 @@ const api = require('./routes/api/api');
 let app = express();
 
 app.use(logger('dev'));
+app.use(bodyParser.json());
 
 // Configuring serve-favicon and static middlewares
 // to serve from production 'build' folder
