@@ -3,6 +3,7 @@ let path = require('path');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 let bodyParser = require('body-parser');
+require('dotenv').config();
 
 // Require mongoDB
 require('./config/database');

@@ -20,7 +20,8 @@ class App extends Component {
       guesses: [this.getNewGuess()],
       winner: null,
       elapsedTime: 0,
-      finalTime: 0
+      finalTime: 0,
+      scores: []
     };
   }
 
@@ -78,13 +79,21 @@ class App extends Component {
   }
 
   handleGuessSubmission = (e) => {
+    let finalTime = this.state.finalTime;
     let guessScore = this.scoreGuess();
     let newGuess = this.getNewGuess();
     let guessesCopy = this.state.guesses.slice();
     guessesCopy.last().score = guessScore;
     let winnerStatus = this.checkForWinner(guessesCopy);
-    let finalTime = winnerStatus ? this.state.elapsedTime : 0;
-    winnerStatus || guessesCopy.push(newGuess);
+    if (winnerStatus) {
+      finalTime = this.state.elapsedTime;
+      if (this.state.scores.length < 20 || (this.state.guesses.length < this.state.scores.last().numGuesses || (this.state.guesses.length === this.state.scores.last().numGuesses && finalTime < this.state.scores.last().seconds))) {
+        let newScore = {seconds: finalTime, numGuesses: this.state.guesses.length}
+        this.sendNewTopScore(newScore);
+      }
+    } else {
+      guessesCopy.push(newGuess);
+    }
     this.setState({guesses: guessesCopy, winner: winnerStatus, finalTime});
   }
 
@@ -109,7 +118,25 @@ class App extends Component {
     }));
   }
 
+  // New top score api post request
+  sendNewTopScore = (score) => {
+    let initials = prompt('Congrats, you have a high score!\nPlease enter your initials:');
+    score.initials = initials;
+    fetch('api/topscores', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({score})
+    }).then(res => res.json()).then(() => {
+      fetch('api/topscores').then(res => res.json()).then(scores => {
+        this.setState({scores}, () => {this.props.history.push('/topscores')});
+      });
+    });
+  }
+
   // Lifecycle Methods
+  componentDidMount() {
+    fetch('/api/topscores').then(res => res.json()).then(scores => {this.setState({scores})})
+  }
 
   render() {
     return (
@@ -143,7 +170,10 @@ class App extends Component {
             />}
           />
           <Route exact path="/topscores" render={(props) =>
-            <TopScoresPage />}
+            <TopScoresPage 
+              topScores={this.state.scores}
+              handleNewGame={this.handleNewGame}
+            />}
           />
         </Switch>
       </div>

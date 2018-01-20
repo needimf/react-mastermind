@@ -7,7 +7,7 @@ function index(req, res) {
 }
 
 function create(req, res) {
-  Score.create(req.body, (err, score) => {
+  Score.create(req.body.score, (err, score) => {
     res.status(201).json(score);
   });
 }

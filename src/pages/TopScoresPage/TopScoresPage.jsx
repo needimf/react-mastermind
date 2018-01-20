@@ -2,6 +2,14 @@ import React from 'react';
 import './TopScoresPage.css';
 
 const TopScoresPage = (props) => {
+  let topScores = props.topScores.map((score, idx) => (
+    <tr key={idx}>
+      <td>{score.initials}</td>
+      <td>{score.numGuesses}</td>
+      <td>{score.seconds}</td>
+    </tr>
+  ))
+
   return (
     <div>
       <h1 className="header-footer-style">Top Scores</h1>
@@ -14,11 +22,7 @@ const TopScoresPage = (props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Dummy Data</td>
-            <td>4</td>
-            <td>60</td>
-          </tr>
+          {topScores}
         </tbody>
       </table>
     </div>
