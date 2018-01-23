@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './TopScoresPage.css';
 
 const TopScoresPage = (props) => {
@@ -25,6 +26,9 @@ const TopScoresPage = (props) => {
           {topScores}
         </tbody>
       </table>
+      <div>
+        <Link className="btn btn-default" to="/" onClick={() => props.handleNewGame()}>New Game</Link>
+      </div>
     </div>
   )
 }

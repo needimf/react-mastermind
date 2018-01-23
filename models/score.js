@@ -24,13 +24,24 @@ scoreSchema.pre('save', function(next) {
   this.constructor.find({}).sort({numGuesses: -1, seconds: -1}).limit(20).exec((err, topScores) => {
     if(err) {
       next(err);
-    } else if (topScores.length < 20 || (this.numGuesses < topScores.numGuesses || (this.numGuesses === topScores.numGuesses && this.seconds < topScores.seconds))) {
+    } else if (topScores.length < 20 || (this.numGuesses < topScores[0].numGuesses || (this.numGuesses === topScores[0].numGuesses && this.seconds < topScores[0].seconds))) {
       next();
     } else {
       next(new Error("Score must be a valid topscore. It must be a better score than the twentieth top score."));
     }
-  })
+  });
+});
 
+scoreSchema.post('save', function(next) {
+  this.constructor.find({}).sort({numGuesses: 1, seconds: 1}).exec((err, scores) => {
+    if (err) {
+      next(err);
+    } else if (scores.length > 20) {
+      console.log('need to remove the worst score');
+    } else {
+      next();
+    }
+  });
 });
 
 scoreSchema.statics.topScores = function(cb) {
