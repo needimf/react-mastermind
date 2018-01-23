@@ -25,6 +25,7 @@ scoreSchema.pre('save', function(next) {
     if(err) {
       next(err);
     } else if (topScores.length < 20 || (this.numGuesses < topScores[0].numGuesses || (this.numGuesses === topScores[0].numGuesses && this.seconds < topScores[0].seconds))) {
+      this.initials.toUpperCase();
       next();
     } else {
       next(new Error("Score must be a valid topscore. It must be a better score than the twentieth top score."));
@@ -37,7 +38,9 @@ scoreSchema.post('save', function(next) {
     if (err) {
       next(err);
     } else if (scores.length > 20) {
-      console.log('need to remove the worst score');
+      this.constructor.findByIdAndRemove(scores[0]._id, (err, removedScore) => {
+        err ? next(err) : next();
+      });
     } else {
       next();
     }
