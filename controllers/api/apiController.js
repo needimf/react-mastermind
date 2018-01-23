@@ -8,7 +8,11 @@ function index(req, res) {
 
 function create(req, res) {
   Score.create(req.body.score, (err, score) => {
-    res.status(201).json(score);
+    if (err) {
+      res.status(409).json(score);
+    } else {
+      res.status(201).json(score);
+    }
   });
 }
 
