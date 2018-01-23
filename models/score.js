@@ -4,7 +4,8 @@ let scoreSchema = new mongoose.Schema({
   initials: {
     type: String,
     required: true,
-    match: /[A-Za-z]{2,3}/
+    match: /[A-Za-z]{2,3}/,
+    uppercase: true
     },
   numGuesses: {
     type: Number,
@@ -25,7 +26,6 @@ scoreSchema.pre('save', function(next) {
     if(err) {
       next(err);
     } else if (topScores.length < 20 || (this.numGuesses < topScores[0].numGuesses || (this.numGuesses === topScores[0].numGuesses && this.seconds < topScores[0].seconds))) {
-      this.initials.toUpperCase();
       next();
     } else {
       next(new Error("Score must be a valid topscore. It must be a better score than the twentieth top score."));
@@ -33,16 +33,14 @@ scoreSchema.pre('save', function(next) {
   });
 });
 
-scoreSchema.post('save', function(next) {
+scoreSchema.post('save', function() {
   this.constructor.find({}).sort({numGuesses: 1, seconds: 1}).exec((err, scores) => {
     if (err) {
-      next(err);
+      console.log("Post hook error: " + err);
     } else if (scores.length > 20) {
       this.constructor.findByIdAndRemove(scores[0]._id, (err, removedScore) => {
-        err ? next(err) : next();
+        console.log("Removed score: " + removedScore);
       });
-    } else {
-      next();
     }
   });
 });
